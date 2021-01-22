@@ -1,19 +1,42 @@
 package formationSpringJpa.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Client extends Login{
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.persistence.Version;
+
+@Entity
+@Table(name = "client")
+@SequenceGenerator(name = "seqClient", sequenceName = "seq_client", initialValue = 10, allocationSize = 1)
+public class Client implements Serializable{
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seqClient")
 	private Long id;
 	private Civilite civilite;
 	private String nom, prenom, email;
+	@OneToMany(mappedBy = "client")
 	private List<Adresse> adresses;
+	@OneToMany(mappedBy = "client")
+	private List<Commande> commandes;
+	@OneToOne
+	private Login login;
+	@Version
+	private int version;
 	
 	public Client() {
 	}
 	
 	public Client(String login, String motDePasse, Role role, Civilite civilite, String nom, String prenom,
 			String email, List<Adresse> adresses) {
-		super(login, motDePasse, role);
 		this.civilite = civilite;
 		this.nom = nom;
 		this.prenom = prenom;
@@ -23,7 +46,6 @@ public class Client extends Login{
 
 	public Client(Long id, String login, String motDePasse, Role role, Long id2, Civilite civilite, String nom,
 			String prenom, String email, List<Adresse> adresses) {
-		super(id, login, motDePasse, role);
 		id = id2;
 		this.civilite = civilite;
 		this.nom = nom;
@@ -62,6 +84,18 @@ public class Client extends Login{
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
+	
+	public List<Commande> getCommandes() {
+		return commandes;
+	}
+
+	public void setCommandes(List<Commande> commandes) {
+		this.commandes = commandes;
+	}
+	
+	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -118,8 +152,18 @@ public class Client extends Login{
 	@Override
 	public String toString() {
 		return "Client [id=" + id + ", civilite=" + civilite + ", nom=" + nom + ", prenom=" + prenom + ", email="
-				+ email + ", adresses=" + adresses + "]";
+				+ email + ", adresses=" + adresses + ", commandes=" + commandes + ", version=" + version + "]";
 	}
+
+	public Login getLogin() {
+		return login;
+	}
+
+	public void setLogin(Login login) {
+		this.login = login;
+	}
+
+
 	
 	
 }

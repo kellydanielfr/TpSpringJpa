@@ -1,9 +1,29 @@
 package formationSpringJpa.entity;
 
-public class Login {
+import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.persistence.Version;
+
+@Entity
+@Table(name = "login")
+@SequenceGenerator(name = "seqLogin", sequenceName = "seq_login", initialValue = 10, allocationSize = 1)
+public class Login implements Serializable{
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seqLogin")
 	private Long id;
-	private String login,motDePasse;
+	@Column(unique=true)
+	private String login;
+	private String motDePasse;
 	private Role role;
+	@Version
+	private int version;
 
 	public Login() {
 	}

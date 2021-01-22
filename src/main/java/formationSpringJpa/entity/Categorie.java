@@ -1,8 +1,26 @@
 package formationSpringJpa.entity;
 
-public class Categorie {
+import java.io.Serializable;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.persistence.Version;
+
+@Entity
+@Table(name = "categorie")
+@SequenceGenerator(name = "seqCategorie", sequenceName = "seq_categorie", initialValue = 10, allocationSize = 1)
+public class Categorie implements Serializable{
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seqCategorie")
 	private Long id;
 	private String nom, description;
+	@Version
+	private int version;
+	
 	public Categorie() {
 	}
 	public Categorie(Long id, String nom, String description) {

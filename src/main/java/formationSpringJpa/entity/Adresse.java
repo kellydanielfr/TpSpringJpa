@@ -1,11 +1,34 @@
 package formationSpringJpa.entity;
 
-public class Adresse {
+import java.io.Serializable;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.persistence.Version;
+
+@Entity
+@Table(name = "adresse")
+@SequenceGenerator(name = "seqAdresse", sequenceName = "seq_adresse", initialValue = 10, allocationSize = 1)
+public class Adresse implements Serializable{
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seqAdresse")
 	private Long id;
 	private String rue, ville;;
 	private Integer codePostal;
+	@ManyToOne
+	private Client client;
+	@Version
+	private int version;
+	
 	public Adresse() {
 	}
+	
 	public Adresse(Long id, String rue, String ville, Integer codePostal) {
 		this.id = id;
 		this.rue = rue;
@@ -41,6 +64,15 @@ public class Adresse {
 	public void setCodePostal(Integer codePostal) {
 		this.codePostal = codePostal;
 	}
+	
+	public Client getClient() {
+		return client;
+	}
+
+	public void setClient(Client client) {
+		this.client = client;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -84,8 +116,10 @@ public class Adresse {
 	}
 	@Override
 	public String toString() {
-		return "Adresse [id=" + id + ", rue=" + rue + ", ville=" + ville + ", codePostal=" + codePostal + "]";
+		return "Adresse [id=" + id + ", rue=" + rue + ", ville=" + ville + ", codePostal=" + codePostal + ", client="
+				+ client + "]";
 	}
+
 	
 	
 }

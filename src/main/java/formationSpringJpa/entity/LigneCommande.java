@@ -1,10 +1,32 @@
 package formationSpringJpa.entity;
 
-public class LigneCommande {
+import java.io.Serializable;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.persistence.Version;
+
+@Entity
+@Table(name = "ligneCommande")
+@SequenceGenerator(name = "seqLigneCommande", sequenceName = "seq_ligneCommande", initialValue = 10, allocationSize = 1)
+public class LigneCommande implements Serializable{
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seqLigneCommande")
 	private Long id;
 	private Integer quantite;
 	private Double montant;
+	@ManyToOne
 	private Produit produit;
+	@ManyToOne
+	private Commande commande;
+	@Version
+	private int version;
+	
 	public LigneCommande() {
 	}
 	public LigneCommande(Integer quantite, Double montant, Produit produit) {
@@ -83,10 +105,17 @@ public class LigneCommande {
 			return false;
 		return true;
 	}
+
 	@Override
 	public String toString() {
 		return "LigneCommande [id=" + id + ", quantite=" + quantite + ", montant=" + montant + ", produit=" + produit
-				+ "]";
+				+ ", commande=" + commande + "]";
+	}
+	public Commande getCommande() {
+		return commande;
+	}
+	public void setCommande(Commande commande) {
+		this.commande = commande;
 	}
 	
 	

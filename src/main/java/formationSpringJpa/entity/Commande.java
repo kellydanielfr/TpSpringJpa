@@ -1,35 +1,64 @@
 package formationSpringJpa.entity;
 
+import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
 
-public class Commande {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.persistence.Version;
+
+@Entity
+@Table(name = "commande")
+@SequenceGenerator(name = "seqCommande", sequenceName = "seq_commande", initialValue = 10, allocationSize = 1)
+public class Commande implements Serializable{
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seqCommande")
 	private Long id; 
 	private Integer nbProduits;
 	private Double prixTotal;
+	@Column(columnDefinition = "DATE")
 	private LocalDate date;
+	@OneToOne
 	private Adresse adresseFacturation;
+	@OneToOne
 	private Adresse adresseLivraison;
-	private LigneCommande ligneCommande;
+	@OneToMany(mappedBy = "commande")
+	private List<LigneCommande> ligneCommandes;
+	@ManyToOne
+	private Client client;
+	
+	@Version
+	private int version;
+	
 	public Commande() {
 	}
 	public Commande(Integer nbProduits, Double prixTotal, LocalDate date, Adresse adresseFacturation,
-			Adresse adresseLivraison, LigneCommande ligneCommande) {
+			Adresse adresseLivraison, List<LigneCommande> ligneCommandes) {
 		this.nbProduits = nbProduits;
 		this.prixTotal = prixTotal;
 		this.date = date;
 		this.adresseFacturation = adresseFacturation;
 		this.adresseLivraison = adresseLivraison;
-		this.ligneCommande = ligneCommande;
+		this.ligneCommandes = ligneCommandes;
 	}
 	public Commande(Long id, Integer nbProduits, Double prixTotal, LocalDate date, Adresse adresseFacturation,
-			Adresse adresseLivraison, LigneCommande ligneCommande) {
+			Adresse adresseLivraison, List<LigneCommande> ligneCommandes) {
 		this.id = id;
 		this.nbProduits = nbProduits;
 		this.prixTotal = prixTotal;
 		this.date = date;
 		this.adresseFacturation = adresseFacturation;
 		this.adresseLivraison = adresseLivraison;
-		this.ligneCommande = ligneCommande;
+		this.ligneCommandes = ligneCommandes;
 	}
 	public Long getId() {
 		return id;
@@ -67,12 +96,14 @@ public class Commande {
 	public void setAdresseLivraison(Adresse adresseLivraison) {
 		this.adresseLivraison = adresseLivraison;
 	}
-	public LigneCommande getLigneCommande() {
-		return ligneCommande;
+	public List<LigneCommande> getLigneCommande() {
+		return ligneCommandes;
 	}
-	public void setLigneCommande(LigneCommande ligneCommande) {
-		this.ligneCommande = ligneCommande;
+	public void setLigneCommande(List<LigneCommande> ligneCommandes) {
+		this.ligneCommandes = ligneCommandes;
 	}
+	
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -81,7 +112,7 @@ public class Commande {
 		result = prime * result + ((adresseLivraison == null) ? 0 : adresseLivraison.hashCode());
 		result = prime * result + ((date == null) ? 0 : date.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((ligneCommande == null) ? 0 : ligneCommande.hashCode());
+		result = prime * result + ((ligneCommandes == null) ? 0 : ligneCommandes.hashCode());
 		result = prime * result + ((nbProduits == null) ? 0 : nbProduits.hashCode());
 		result = prime * result + ((prixTotal == null) ? 0 : prixTotal.hashCode());
 		return result;
@@ -115,10 +146,10 @@ public class Commande {
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
-		if (ligneCommande == null) {
-			if (other.ligneCommande != null)
+		if (ligneCommandes == null) {
+			if (other.ligneCommandes != null)
 				return false;
-		} else if (!ligneCommande.equals(other.ligneCommande))
+		} else if (!ligneCommandes.equals(other.ligneCommandes))
 			return false;
 		if (nbProduits == null) {
 			if (other.nbProduits != null)
@@ -132,11 +163,18 @@ public class Commande {
 			return false;
 		return true;
 	}
+
 	@Override
 	public String toString() {
 		return "Commande [id=" + id + ", nbProduits=" + nbProduits + ", prixTotal=" + prixTotal + ", date=" + date
 				+ ", adresseFacturation=" + adresseFacturation + ", adresseLivraison=" + adresseLivraison
-				+ ", ligneCommande=" + ligneCommande + "]";
+				+ ", ligneCommandes=" + ligneCommandes + ", client=" + client + ", version=" + version + "]";
+	}
+	public Client getClient() {
+		return client;
+	}
+	public void setClient(Client client) {
+		this.client = client;
 	}
 	
 	
