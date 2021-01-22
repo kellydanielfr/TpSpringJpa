@@ -17,7 +17,7 @@ import javax.persistence.Version;
 public class LigneCommande implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seqLigneCommande")
-	private Long id;
+	private Integer id;
 	private Integer quantite;
 	private Double montant;
 	@ManyToOne
@@ -34,16 +34,16 @@ public class LigneCommande implements Serializable{
 		this.montant = montant;
 		this.produit = produit;
 	}
-	public LigneCommande(Long id, Integer quantite, Double montant, Produit produit) {
+	public LigneCommande(Integer id, Integer quantite, Double montant, Produit produit) {
 		this.id = id;
 		this.quantite = quantite;
 		this.montant = montant;
 		this.produit = produit;
 	}
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	public Integer getQuantite() {

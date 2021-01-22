@@ -16,14 +16,14 @@ import javax.persistence.Version;
 public class Categorie implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seqCategorie")
-	private Long id;
+	private Integer id;
 	private String nom, description;
 	@Version
 	private int version;
 	
 	public Categorie() {
 	}
-	public Categorie(Long id, String nom, String description) {
+	public Categorie(Integer id, String nom, String description) {
 		this.id = id;
 		this.nom = nom;
 		this.description = description;
@@ -32,10 +32,10 @@ public class Categorie implements Serializable{
 		this.nom = nom;
 		this.description = description;
 	}
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	public String getNom() {

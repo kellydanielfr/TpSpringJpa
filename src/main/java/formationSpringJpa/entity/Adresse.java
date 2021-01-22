@@ -18,7 +18,7 @@ public class Adresse implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seqAdresse")
-	private Long id;
+	private Integer id;
 	private String rue, ville;;
 	private Integer codePostal;
 	@ManyToOne
@@ -29,7 +29,7 @@ public class Adresse implements Serializable{
 	public Adresse() {
 	}
 	
-	public Adresse(Long id, String rue, String ville, Integer codePostal) {
+	public Adresse(Integer id, String rue, String ville, Integer codePostal) {
 		this.id = id;
 		this.rue = rue;
 		this.ville = ville;
@@ -40,10 +40,10 @@ public class Adresse implements Serializable{
 		this.ville = ville;
 		this.codePostal = codePostal;
 	}
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	public String getRue() {

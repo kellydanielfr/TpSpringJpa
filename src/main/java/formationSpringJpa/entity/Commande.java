@@ -22,7 +22,7 @@ import javax.persistence.Version;
 public class Commande implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seqCommande")
-	private Long id; 
+	private Integer id; 
 	private Integer nbProduits;
 	private Double prixTotal;
 	@Column(columnDefinition = "DATE")
@@ -50,7 +50,7 @@ public class Commande implements Serializable{
 		this.adresseLivraison = adresseLivraison;
 		this.ligneCommandes = ligneCommandes;
 	}
-	public Commande(Long id, Integer nbProduits, Double prixTotal, LocalDate date, Adresse adresseFacturation,
+	public Commande(Integer id, Integer nbProduits, Double prixTotal, LocalDate date, Adresse adresseFacturation,
 			Adresse adresseLivraison, List<LigneCommande> ligneCommandes) {
 		this.id = id;
 		this.nbProduits = nbProduits;
@@ -60,10 +60,10 @@ public class Commande implements Serializable{
 		this.adresseLivraison = adresseLivraison;
 		this.ligneCommandes = ligneCommandes;
 	}
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	public Integer getNbProduits() {

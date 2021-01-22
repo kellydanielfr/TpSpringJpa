@@ -18,7 +18,7 @@ public class Produit implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seqProduit")
-	private Long id;
+	private Integer id;
 	private String nom, description;
 	private Double prix;
 	private Integer stock;
@@ -30,7 +30,7 @@ public class Produit implements Serializable{
 	public Produit() {
 	}
 
-	public Produit(Long id, String nom, String description, Double prix, Integer stock, Categorie categorie) {
+	public Produit(Integer id, String nom, String description, Double prix, Integer stock, Categorie categorie) {
 		this.id = id;
 		this.nom = nom;
 		this.description = description;
@@ -47,11 +47,11 @@ public class Produit implements Serializable{
 		this.categorie = categorie;
 	}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

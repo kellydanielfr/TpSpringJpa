@@ -17,7 +17,7 @@ import javax.persistence.Version;
 public class Login implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seqLogin")
-	private Long id;
+	private Integer id;
 	@Column(unique=true)
 	private String login;
 	private String motDePasse;
@@ -36,7 +36,7 @@ public class Login implements Serializable{
 	}
 
 
-	public Login(Long id, String login, String motDePasse, Role role) {
+	public Login(Integer id, String login, String motDePasse, Role role) {
 		this.id = id;
 		this.login = login;
 		this.motDePasse = motDePasse;
@@ -44,12 +44,12 @@ public class Login implements Serializable{
 	}
 
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

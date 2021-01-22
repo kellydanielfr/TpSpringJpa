@@ -20,7 +20,7 @@ public class Client implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seqClient")
-	private Long id;
+	private Integer id;
 	private Civilite civilite;
 	private String nom, prenom, email;
 	@OneToMany(mappedBy = "client")
@@ -44,7 +44,7 @@ public class Client implements Serializable{
 		this.adresses = adresses;
 	}
 
-	public Client(Long id, String login, String motDePasse, Role role, Long id2, Civilite civilite, String nom,
+	public Client(Integer id, String login, String motDePasse, Role role, Integer id2, Civilite civilite, String nom,
 			String prenom, String email, List<Adresse> adresses) {
 		id = id2;
 		this.civilite = civilite;
@@ -54,10 +54,10 @@ public class Client implements Serializable{
 		this.adresses = adresses;
 	}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	public Civilite getCivilite() {
