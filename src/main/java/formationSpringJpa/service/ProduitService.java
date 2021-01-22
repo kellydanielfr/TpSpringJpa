@@ -16,14 +16,19 @@ import formationSpringJpa.repository.RepositoryProduit;
 public class ProduitService {
 	@Autowired
 	private RepositoryProduit produitRepo;
+
+	public Produit newProduit(String nom, String description, Double prix, Integer stock, Categorie categorie) {
+		return insert(new Produit(nom, description, prix, stock, categorie));
+	}
 	
-	public void insert(Produit produit) {
-		Optional<Produit> opt = produitRepo.findById(produit.getId());
-		if (opt.isPresent()) {
-			System.out.println("La produit existe déjà");
-		} else {
+	public Produit insert(Produit produit) {
+		if(produit.getNom() != null && !produit.getNom().isEmpty() && produit.getCategorie() != null && produit.getPrix() != null && produit.getStock() != null) {
 			produitRepo.save(produit);
+			return produit;
+		}else {
+			System.out.println("Il manque des infos");
 		}
+		return null;
 	}
 	
 	public void delete(Produit produit) {

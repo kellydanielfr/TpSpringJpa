@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import formationSpringJpa.entity.Categorie;
+import formationSpringJpa.entity.Produit;
 import formationSpringJpa.repository.RepositoryCategorie;
 
 @Service
@@ -14,13 +15,17 @@ public class CategorieService {
 	@Autowired
 	private RepositoryCategorie categorieRepo;
 	
-	public void insert(Categorie categorie) {
-		Optional<Categorie> opt = categorieRepo.findById(categorie.getId());
-		if (opt.isPresent()) {
-			System.out.println("La categorie existe déjà");
-		} else {
+	public Categorie newCategorie(String nom, String description) {
+		return insert(new Categorie(nom, description));
+	}
+	public Categorie insert(Categorie categorie) {
+		if(categorie.getNom() != null && !categorie.getNom().isEmpty()){
 			categorieRepo.save(categorie);
+			return categorie;
+		}else {
+			System.out.println("Il manque des infos");
 		}
+		return null;
 	}
 	
 	public void delete(Categorie categorie) {

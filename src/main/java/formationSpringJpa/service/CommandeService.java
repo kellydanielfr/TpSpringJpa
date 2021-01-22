@@ -20,12 +20,7 @@ public class CommandeService {
 	private RepositoryProduit produitRepo;
 	
 	public void insert(Commande commande) {
-		Optional<Commande> opt = commandeRepo.findById(commande.getId());
-		if (opt.isPresent()) {
-			System.out.println("La commande existe déjà");
-		} else {
 			commandeRepo.save(commande);
-		}
 	}
 	
 	public void delete(Commande commande) {
@@ -73,6 +68,8 @@ public class CommandeService {
 				List<LigneCommande> listligne = commande.getLigneCommande();
 				listligne.add(ligneCommande);
 				commande.setLigneCommande(listligne);
+				commande.setNbProduits(commande.getNbProduits()+qte);
+				commande.setPrixTotal(commande.getPrixTotal()+ligneCommande.getMontant());
 			}else {
 				System.out.println("Pas assez de stock");
 			}

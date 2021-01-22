@@ -41,21 +41,21 @@ public class Commande implements Serializable{
 	
 	public Commande() {
 	}
-	public Commande(Integer nbProduits, Double prixTotal, LocalDate date, Adresse adresseFacturation,
+	public Commande(Integer nbProduits, Double prixTotal, Adresse adresseFacturation,
 			Adresse adresseLivraison, List<LigneCommande> ligneCommandes) {
 		this.nbProduits = nbProduits;
 		this.prixTotal = prixTotal;
-		this.date = date;
+		this.date = LocalDate.now();
 		this.adresseFacturation = adresseFacturation;
 		this.adresseLivraison = adresseLivraison;
 		this.ligneCommandes = ligneCommandes;
 	}
-	public Commande(Integer id, Integer nbProduits, Double prixTotal, LocalDate date, Adresse adresseFacturation,
+	public Commande(Integer id, Integer nbProduits, Double prixTotal, Adresse adresseFacturation,
 			Adresse adresseLivraison, List<LigneCommande> ligneCommandes) {
 		this.id = id;
 		this.nbProduits = nbProduits;
 		this.prixTotal = prixTotal;
-		this.date = date;
+		this.date = LocalDate.now();
 		this.adresseFacturation = adresseFacturation;
 		this.adresseLivraison = adresseLivraison;
 		this.ligneCommandes = ligneCommandes;
